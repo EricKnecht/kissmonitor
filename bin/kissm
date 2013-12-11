@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler'
+KISSM_ENV = ENV['KISSM_ENV'] || :development
+Bundler.require(:default, KISSM_ENV.to_sym)
+
+# Load all application files.
+require 'app/boot'
+module KissMonitor
+  class CLI < Thor
+    desc "monitor", "collects and alerts based on metrics"
+    option :config, :required => true, :banner => 'Path to yaml config file'
+    option :debug, :type => :boolean
+    def monitor
+      config_file = options[:config]
+      $DEBUG = options[:debug] || false
+      begin
+        config = YAML.load_file config_file
+      rescue ArgumentError => e
+        puts "#{config_file} is not a valid yaml file"
+        exit 1
+      end
+      monitor = Launcher.new(config)
+      monitor.run
+    end
+  end
+end
+
+KissMonitor::CLI.start(ARGV)

@@ -1,0 +1,46 @@
+---
+#This lists the plugins that this machine
+#should run to collect metrics
+#Alerting threshold should also be set here
+#Valid comparison operators are >, <, >=, <=, ==
+metric_collectors: 
+  - plugin: DiskMetrics
+    alert_thresholds: 
+     #Alert when usage of / is greater than 80%
+     "/":
+       value: 80
+       type: ">" 
+  - plugin: LoadMetrics
+    #Alert when cpu or mem is greater than 75%
+    alert_thresholds:
+      mem_usage: 
+        value: 75
+        type: ">"
+      load_avg:
+        value: 0.75
+        type: ">"
+
+
+#If a metric alert is triggered, the following alert 
+#plugins will be fired. Settings for the plugins can be defined here
+#OR exposed via ENVIORNMENT variables in the form KISSM_PluginName_config_value
+#example: KISSM_EmailAlert_smtp_server
+metric_alerts:
+  - plugin: EmailAlert
+    smtp_server: smtp.gmail.com
+    smtp_port: 587
+    smtp_domain: ericknecht.com
+    smtp_user: kissmonitor@ericknecht.com
+    smtp_password: I17zI1U23W6445O
+    to_email: eric+kissm@ericknecht.com
+  
+
+
+#metrics are shipped to external services with this
+#set of plugins. 
+#StatsD is used as an example, 
+metric_shippers:
+  # - plugin: StatsDShipper
+  #   statsd_server: localhost
+  #   statsd_port: 1234
+
