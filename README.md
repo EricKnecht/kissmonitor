@@ -6,7 +6,7 @@ KissMonitor is a Simple and Stupid monitoring system written in ruby
 Assumptions/dependencies
 ------------------------
 * Ruby version >= 1.8.7 
-  - This was chosen because 1.8.7 is still (unfortunatly) the default ruby on many linux distros
+  - This was chosen because 1.8.7 is still (unfortunately) the default ruby on many linux distros
 * Currently only Linux is tested (both Centos and Ubuntu) but it should work on other unixes
   - Windows support is possible, but would likely require some modifications to the metric collectors
     I don't currently have a windows machine to test on
@@ -15,7 +15,7 @@ Assumptions/dependencies
 Configuration File
 --------------------
 KissMonitor is controlled by a single yaml file
-the repository include a commented [sample file](config.sample.yaml)
+the repository includes a commented [sample file](config.sample.yaml)
 This file could easily be generated/deployed by a configuration management tool such as Ansible/Puppet/Chef/ect
 
 Extending KissMonitor
